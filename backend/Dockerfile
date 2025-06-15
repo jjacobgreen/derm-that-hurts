@@ -27,11 +27,11 @@ ENV PATH="/uv/.venv/bin:$PATH"
 # Tell uv where the environment is
 ENV VIRTUAL_ENV=/uv/.venv
 ENV UV_PROJECT_ENVIRONMENT=/uv/.venv
-ENV PYTHONPATH=/root:/root/app
+ENV PYTHONPATH=/root:/root/app:/root/app/backend/src:/root/app/backend
 
 # Copy source code
 WORKDIR /root/app
-COPY . /root/app/
+COPY ./src /root/app
 
 # Keep the container running
 CMD [ "tail", "-f", "/dev/null" ]

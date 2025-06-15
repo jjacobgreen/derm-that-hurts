@@ -1,12 +1,14 @@
 services:
-  inference:
-    container_name: inference
+  backend:
+    container_name: backend
     build:
-      context: .
+      context: ./backend
       target: dev
-    entrypoint: ["tail", "-f", "/dev/null"]
+    working_dir: /root/app
+    entrypoint: ["uv", "run", "uvicorn", "backend.src.main_fastapi:app", "--host", "0.0.0.0", "--port", "8000"]
+    # entrypoint: ["tail", "-f", "/dev/null"]
     ports:
-      - "8000:8000"  # FastAPI port
+      - 8000:8000
     environment:
       - TOKENIZERS_PARALLELISM=false
       - PYTHONWARNINGS=ignore
@@ -15,3 +17,26 @@ services:
       # host are reflected in the container and vice versa.
       - ../:/development
       - ./:/root/app
+    networks:
+      - app-network
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
