@@ -1,0 +1,12 @@
+services:
+  inference:
+    container_name: inference
+    build:
+      context: .
+      target: dev
+    entrypoint: ["tail", "-f", "/dev/null"]
+    volumes:
+      # Mount the working directory to the container so that changes in the 
+      # host are reflected in the container and vice versa.
+      - ../:/development
+      - ./:/root/app
