@@ -1,0 +1,736 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "MONET Dermatology Analyzer API",
+        "description": "AI-powered dermatology image analysis using MONET",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/health": {
+            "get": {
+                "summary": "Health Check",
+                "operationId": "health_check_health_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HealthResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/model/status": {
+            "get": {
+                "summary": "Get Model Status",
+                "operationId": "get_model_status_model_status_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelStatus"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dataset/status": {
+            "get": {
+                "summary": "Get Dataset Status",
+                "operationId": "get_dataset_status_dataset_status_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DatasetStatus"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dataset/random/{count}": {
+            "get": {
+                "summary": "Get Random Images",
+                "operationId": "get_random_images_dataset_random__count__get",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Count"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dataset/image/{index}": {
+            "get": {
+                "summary": "Get Dataset Image",
+                "operationId": "get_dataset_image_dataset_image__index__get",
+                "parameters": [
+                    {
+                        "name": "index",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Index"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/upload": {
+            "post": {
+                "summary": "Upload Image",
+                "operationId": "upload_image_upload_post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_image_upload_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UploadResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/upload/{upload_id}": {
+            "get": {
+                "summary": "Get Uploaded Image",
+                "operationId": "get_uploaded_image_upload__upload_id__get",
+                "parameters": [
+                    {
+                        "name": "upload_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Upload Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Uploaded Image",
+                "operationId": "delete_uploaded_image_upload__upload_id__delete",
+                "parameters": [
+                    {
+                        "name": "upload_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Upload Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/analyze/dataset/{index}": {
+            "post": {
+                "summary": "Analyze Dataset Image",
+                "operationId": "analyze_dataset_image_analyze_dataset__index__post",
+                "parameters": [
+                    {
+                        "name": "index",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Index"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AnalysisRequest",
+                                "default": {
+                                    "threshold": 0.1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/analyze/upload/{upload_id}": {
+            "post": {
+                "summary": "Analyze Uploaded Image",
+                "operationId": "analyze_uploaded_image_analyze_upload__upload_id__post",
+                "parameters": [
+                    {
+                        "name": "upload_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Upload Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AnalysisRequest",
+                                "default": {
+                                    "threshold": 0.1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/analyze/result/{job_id}": {
+            "get": {
+                "summary": "Get Analysis Result",
+                "operationId": "get_analysis_result_analyze_result__job_id__get",
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Job Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AnalysisResult"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/concepts": {
+            "get": {
+                "summary": "Get Concepts",
+                "operationId": "get_concepts_concepts_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/results/{job_id}/summary": {
+            "get": {
+                "summary": "Get Results Summary",
+                "operationId": "get_results_summary_results__job_id__summary_get",
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Job Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/results/{job_id}/visualization": {
+            "get": {
+                "summary": "Get Results Visualization",
+                "operationId": "get_results_visualization_results__job_id__visualization_get",
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Job Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AnalysisRequest": {
+                "properties": {
+                    "concepts": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Concepts"
+                    },
+                    "threshold": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Threshold",
+                        "default": 0.1
+                    }
+                },
+                "type": "object",
+                "title": "AnalysisRequest"
+            },
+            "AnalysisResult": {
+                "properties": {
+                    "job_id": {
+                        "type": "string",
+                        "title": "Job Id"
+                    },
+                    "status": {
+                        "type": "string",
+                        "title": "Status"
+                    },
+                    "max_score": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Max Score"
+                    },
+                    "mean_score": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Mean Score"
+                    },
+                    "high_confidence_count": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "High Confidence Count"
+                    },
+                    "top_concepts": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "additionalProperties": true,
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Top Concepts"
+                    },
+                    "error": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Error"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "job_id",
+                    "status"
+                ],
+                "title": "AnalysisResult"
+            },
+            "Body_upload_image_upload_post": {
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "File"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "file"
+                ],
+                "title": "Body_upload_image_upload_post"
+            },
+            "DatasetStatus": {
+                "properties": {
+                    "loaded": {
+                        "type": "boolean",
+                        "title": "Loaded"
+                    },
+                    "total_samples": {
+                        "type": "integer",
+                        "title": "Total Samples"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loaded",
+                    "total_samples"
+                ],
+                "title": "DatasetStatus"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "HealthResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "title": "Status"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "title": "Timestamp"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status",
+                    "timestamp"
+                ],
+                "title": "HealthResponse"
+            },
+            "ModelStatus": {
+                "properties": {
+                    "loaded": {
+                        "type": "boolean",
+                        "title": "Loaded"
+                    },
+                    "device": {
+                        "type": "string",
+                        "title": "Device"
+                    },
+                    "model_name": {
+                        "type": "string",
+                        "title": "Model Name"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loaded",
+                    "device",
+                    "model_name"
+                ],
+                "title": "ModelStatus"
+            },
+            "UploadResponse": {
+                "properties": {
+                    "upload_id": {
+                        "type": "string",
+                        "title": "Upload Id"
+                    },
+                    "filename": {
+                        "type": "string",
+                        "title": "Filename"
+                    },
+                    "size": {
+                        "items": {},
+                        "type": "array",
+                        "title": "Size"
+                    },
+                    "mode": {
+                        "type": "string",
+                        "title": "Mode"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "upload_id",
+                    "filename",
+                    "size",
+                    "mode"
+                ],
+                "title": "UploadResponse"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    }
+}

@@ -5,6 +5,11 @@ services:
       context: .
       target: dev
     entrypoint: ["tail", "-f", "/dev/null"]
+    ports:
+      - "8000:8000"  # FastAPI port
+    environment:
+      - TOKENIZERS_PARALLELISM=false
+      - PYTHONWARNINGS=ignore
     volumes:
       # Mount the working directory to the container so that changes in the 
       # host are reflected in the container and vice versa.
